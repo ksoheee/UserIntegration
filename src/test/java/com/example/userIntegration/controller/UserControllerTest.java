@@ -152,7 +152,7 @@ class UserControllerTest {
     void testUpdateUser_duplicateUsername() {
         // 사용자 두 명 등록
         restTemplate.postForEntity("/create/users", new User("user1", "1234"), User.class);
-        ResponseEntity<User> createResponse = restTemplate.postForEntity("/users", new User("user2", "5678"), User.class);
+        ResponseEntity<User> createResponse = restTemplate.postForEntity("/create/users", new User("user2", "5678"), User.class);
         Long id = createResponse.getBody().getId();
 
         // user2의 username을 user1으로 변경 시도
@@ -162,6 +162,7 @@ class UserControllerTest {
         assertEquals(400, response.getStatusCode().value());
         assertEquals("Username already exists", response.getBody());
     }
+
 
     @Test
     void testDeleteUserById_success() {
